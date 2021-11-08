@@ -1,4 +1,3 @@
-from werkzeug.datastructures import T
 from website import create_app
 
 app = create_app()
