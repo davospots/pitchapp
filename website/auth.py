@@ -22,8 +22,7 @@ def login():
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
-        if user:
-            flash('Email already exists', category='error')
+        
 
         if len(email) < 4 :
             flash('Email must be greater than 4 characters', category='error')
@@ -33,6 +32,7 @@ def login():
             flash('Passwords don\'t match', category='error')
         elif len(password1) < 5:
             flash('Passowrd must be atleast 5 characters', category='error')
-
+        else:
+            flash('Account created!', category='success')
 
     return render_template('sign_up.html')

@@ -21,11 +21,33 @@
             <a href="/logout" class="nav-item nav-link" id="logout">Logout</a>
             <a href="/" class="nav-item nav-link" id="home">Home</a>
         </div>
-      </nav>
+    </nav>
 
-      <div class="container">
+    {% with messages = get_flashed_messages( with_categories =true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        {% if category == 'error' %}
+        <div class="alert alert-danger alert-dismissible fade show mx-5 mt-4 
+        border border-danger" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% else %}    
+            <div class="alert alert-success alert-dismissible fade show mx-5 mt-4 
+            border border-success" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert">
+                    
+                </button>
+            </div>
+        {% endif %}    
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
         {% block content %}{% endblock %}
-      </div>
+    </div>
         
 
 
