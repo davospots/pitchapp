@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\David Mathaga\Desktop\Projects\Pythonista\Pitchapp\env"
+VIRTUAL_ENV="C:\Users\David Mathaga\Desktop\Projects\Pythonista\Templatepy\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

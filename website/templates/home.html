@@ -3,5 +3,21 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<h1 align="center">Pitches</h1>
+<ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <li class="list-group-item">{{note.data}}
+        
+        <button type="button" class="btn-close" onClick = "deleteNote({{ note.id }})">
+    </li>
+    {% endfor %}
 
+</ul>
+<form action="" method="POST">
+    <textarea name="note" id="note" cols="30" rows="10" class="form-control"></textarea>
+    <div align="center">
+        <br>
+        <button type="submit" class="btn btn-primary">Post Pitch</button>
+    </div>
+</form>
 {% endblock %}
