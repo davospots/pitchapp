@@ -29,7 +29,7 @@ python3.8 -m venv --without-pip virtual
 - To activate the virtual environment
 
 ```
-source virtual/bin/activate
+source env/bin/activate
 ```
 
 ```
