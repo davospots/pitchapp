@@ -52,3 +52,14 @@ def create_post():
 
     return render_template('create_pitch.html', user=current_user)
 
+@views.route('/pitches/<username>')
+@login_required
+def pitches(username):
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        flash('No user with that username exists.', category='error')
+        return redirect(url_for('views.home'))
+
+    pitches = Post.query.filter_by(author=user.id).all()
+
+    return render_template('pitches.html',user=current_user,pitches=pitches,username=username)
