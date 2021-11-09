@@ -1,6 +1,9 @@
-from flask import Blueprint,render_template,flash,request,jsonify
+import re
+from flask import Blueprint,render_template,flash,request,jsonify,abort
 from flask.json import jsonify
 from flask_login import login_required,current_user
+
+from website.auth import login
 from .models import Note
 from . import db
 import json
@@ -34,3 +37,11 @@ def delete_note():
             db.session.commit()
 
     return jsonify({})
+
+
+@views.route('/create-post', methods = ['GET','POST'])
+@login_required
+def create_post():
+    return render_template('create_post.html', user=current_user)
+
+

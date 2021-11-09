@@ -5,6 +5,7 @@
 {% block content %}
 <h1 align="center">Pitches</h1>
 <ul class="list-group list-group-flush" id="notes">
+  <h4 class="card-title">My Pitches</h4>
     {% for note in user.notes %}
     <li class="list-group-item">
         {{ note.data }}
