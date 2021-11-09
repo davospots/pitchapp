@@ -1,30 +1,22 @@
-import re
-from flask import Blueprint,render_template,flash,request,jsonify,abort
+
+from flask import Blueprint,render_template,flash,request,jsonify,redirect,url_for
 from flask.json import jsonify
 from flask_login import login_required,current_user
 
 from website.auth import login
-from .models import Note
+from .models import Post,User
 from . import db
 import json
 
 views = Blueprint('views', __name__)
 
-@views.route('/', methods=['GET','POST'])
+@views.route('/')
+@views.route('/home')
 @login_required
 def home():
-    if request.method == 'POST':
-        note = request.form.get('note')
-
-        if len(note) < 1:
-            flash('Pitch is too short!', category='error')
-        else:
-            new_note = Note(data=note, user_id = current_user.id)
-            db.session.add(new_note)
-            db.session.commit()
-            flash('Pitch added!', category='success')
-
-    return render_template('home.html', user=current_user)
+    notes = Post.query.all()
+    return render_template ('home.html', user=current_user, notes=notes)
+    
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
@@ -39,9 +31,20 @@ def delete_note():
     return jsonify({})
 
 
-@views.route('/create-post', methods = ['GET','POST'])
+@views.route("/create-post", methods=['GET', 'POST'])
 @login_required
 def create_post():
-    return render_template('create_post.html', user=current_user)
+    if request.method == "POST":
+        text = request.form.get('text')
 
+        if not text:
+            flash('Post cannot be empty', category='error')
+        else:
+            post = Post(text=text, author=current_user.id)
+            db.session.add(post)
+            db.session.commit()
+            flash('Post created!', category='success')
+            return redirect(url_for('views.home'))
+
+    return render_template('create_post.html', user=current_user)
 
