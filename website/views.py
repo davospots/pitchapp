@@ -14,8 +14,8 @@ views = Blueprint('views', __name__)
 @views.route('/home')
 @login_required
 def home():
-    notes = Post.query.all()
-    return render_template ('home.html', user=current_user, notes=notes)
+    posts = Post.query.all()
+    return render_template('home.html', user=current_user, posts=posts)
     
 
 @views.route('/delete-note', methods=['POST'])
@@ -31,7 +31,7 @@ def delete_note():
     return jsonify({})
 
 
-@views.route("/create-post", methods=['GET', 'POST'])
+@views.route("/create-pitch", methods=['GET', 'POST'])
 @login_required
 def create_post():
     if request.method == "POST":
