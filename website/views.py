@@ -18,17 +18,21 @@ def home():
     return render_template('home.html', user=current_user, posts=posts)
     
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
+@views.route("/delete-pitch/<id>")
+@login_required
+def delete_pitch(id):
+    post = Post.query.filter_by(id=id).first()
 
-    return jsonify({})
+    if not post:
+        flash("Pitch does not exist.", category='error')
+    elif current_user.id != post.id:
+        flash('You do not have permission to delete this pitch.', category='error')
+    else:
+        db.session.delete(post)
+        db.session.commit()
+        flash('Pitch deleted.', category='success')
+
+    return redirect(url_for('views.home'))
 
 
 @views.route("/create-pitch", methods=['GET', 'POST'])
@@ -46,5 +50,5 @@ def create_post():
             flash('Pitch created', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template('create_post.html', user=current_user)
+    return render_template('create_pitch.html', user=current_user)
 

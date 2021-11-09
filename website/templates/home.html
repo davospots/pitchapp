@@ -11,9 +11,9 @@
       <a href="/posts/{{post.user.username}}">{{post.user.username}}</a>
       {% if user.id == post.author %}
       <div class="btn-group">
-        <button class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown"></button>
+        <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"></button>
         <ul class="dropdown-menu">
-          <li><a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a></li>
+          <li><a href="/delete-pitch/{{post.id}}" class="dropdown-item">Delete</a></li>
         </ul>
       </div>
       {% endif %}
@@ -28,7 +28,11 @@
   <br>
 
   {% endfor %}
-
+  <div align="center">
+    <a href="/create-pitch">
+      <button class="btn btn-lg btn-primary">Create Pitch</button>
+    </a>
+  </div>
 
 </div>
 
