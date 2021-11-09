@@ -38,12 +38,12 @@ def create_post():
         text = request.form.get('text')
 
         if not text:
-            flash('Post cannot be empty', category='error')
+            flash('Pitch cannot be empty', category='error')
         else:
             post = Post(text=text, author=current_user.id)
             db.session.add(post)
             db.session.commit()
-            flash('Post created!', category='success')
+            flash('Pitch created', category='success')
             return redirect(url_for('views.home'))
 
     return render_template('create_post.html', user=current_user)
