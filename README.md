@@ -23,7 +23,7 @@ A web application where users will submit their one minute pitches and other use
 - Run the following command to start the server using virtual environment
 
 ```
-python3.8 -m venv --without-pip virtual
+python3.8 -m venv --without-pip env
 ```
 
 - To activate the virtual environment
